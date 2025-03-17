@@ -1,0 +1,89 @@
+# Gradle files
+.gradle/
+build/
+!gradle-wrapper.jar
+
+# Local configuration files
+/local.properties
+/.idea/
+/*.iml
+/.vscode/
+/*.sublime-workspace
+
+# Dependency directories
+/.caches/
+/build/
+*/build/
+
+# Keystore files (Security)
+*.jks
+*.keystore
+*.key
+
+# Android Studio files
+captures/
+*.hprof
+*.log
+*.lock
+*.bak
+*.orig
+
+# Proguard files
+proguard/
+*.mapping
+
+# Generated files
+*.apk
+*.aab
+*.dex
+*.class
+*.jar
+
+# IntelliJ project files
+.idea/
+*.iws
+*.ipr
+*.iml
+
+# Log files
+*.log
+
+# MacOS/Linux system files
+.DS_Store
+*.swp
+*.swo
+*.sublime-project
+
+# Test reports
+test-output/
+coverage/
+*.ec
+
+# Firebase and Google Services
+google-services.json
+app/google-services.json
+fabric.properties
+
+# Crashlytics
+crashlytics.properties
+
+# Local Gradle Wrapper
+gradle/wrapper/gradle-wrapper.properties
+
+# Node modules (if React Native or hybrid)
+node_modules/
+
+# Fastlane build artifacts
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+
+# JetBrains Rider
+.idea/workspace.xml
+.idea/gradle.xml
+.idea/libraries/
+
+# Temporary files
+*.tmp
+*.temp
+*.orig

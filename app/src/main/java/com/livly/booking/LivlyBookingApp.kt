@@ -1,0 +1,3 @@
+@HiltAndroidApp
+class LivlyBookingApp : Application() {
+}
