@@ -1,6 +1,7 @@
 package com.livly.booking
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -30,19 +31,25 @@ class AmenityAvailabilityFragment : Fragment(R.layout.fragment_amenity_availabil
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        Log.d("AmenityFragment", "Feature enabled: ${featureFlagManager.isFeatureEnabled("amenity_availability")}")
+
         if (featureFlagManager.isFeatureEnabled("amenity_availability")) {
             viewModel.amenityAvailability.observe(viewLifecycleOwner) { result ->
+                Log.d("AmenityFragment", "Received result: $result")
                 when (result) {
                     is Result.Loading -> {
+                        Log.d("AmenityFragment", "Loading state")
                         binding.progressBar.isVisible = true
                         binding.recyclerView.isVisible = false
                     }
                     is Result.Success -> {
+                        Log.d("AmenityFragment", "Success with ${result.data.size} items")
                         binding.progressBar.isVisible = false
                         binding.recyclerView.isVisible = true
                         adapter.submitList(result.data)
                     }
                     is Result.Error -> {
+                        Log.d("AmenityFragment", "Error: ${result.exception}")
                         binding.progressBar.isVisible = false
                         binding.recyclerView.isVisible = false
                         Toast.makeText(
@@ -54,7 +61,17 @@ class AmenityAvailabilityFragment : Fragment(R.layout.fragment_amenity_availabil
                 }
             }
 
+            Log.d("AmenityFragment", "Calling getAmenityAvailability")
             viewModel.getAmenityAvailability("sample-amenity-id", null, null)
+        } else {
+            Log.d("AmenityFragment", "Feature is disabled")
+            binding.progressBar.isVisible = false
+            binding.recyclerView.isVisible = false
+            Toast.makeText(
+                requireContext(),
+                "This feature is currently unavailable",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 

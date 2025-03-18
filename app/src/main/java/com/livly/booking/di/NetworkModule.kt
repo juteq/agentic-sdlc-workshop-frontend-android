@@ -18,12 +18,20 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+            redactHeader("Authorization")
+            redactHeader("Cookie")
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
         return Retrofit.Builder()
             .baseUrl("http://10.0.2.2:5122/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            }).build())
+            .client(client)
             .build()
     }
 

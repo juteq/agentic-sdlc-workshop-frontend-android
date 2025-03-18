@@ -25,15 +25,13 @@ class AmenityBookingViewModel @Inject constructor(
     val bookingResult: LiveData<Result<String>> get() = _bookingResult
 
     fun getAmenityAvailability(id: String, startDate: String?, endDate: String?) {
-        if (featureFlagManager.isFeatureEnabled("amenity_availability")) {
-            viewModelScope.launch {
-                _amenityAvailability.value = Result.Loading
-                try {
-                    val availability = repository.getAmenityAvailability(id, startDate, endDate)
-                    _amenityAvailability.value = Result.Success(availability)
-                } catch (e: Exception) {
-                    _amenityAvailability.value = Result.Error(e)
-                }
+        viewModelScope.launch {
+            _amenityAvailability.value = Result.Loading
+            try {
+                val availability = repository.getAmenityAvailability(id, startDate, endDate)
+                _amenityAvailability.value = Result.Success(availability)
+            } catch (e: Exception) {
+                _amenityAvailability.value = Result.Error(e)
             }
         }
     }
