@@ -1,27 +1,34 @@
-class AmenityAvailabilityAdapter : ListAdapter<TimeSlot, AmenityAvailabilityAdapter.TimeSlotViewHolder>(TimeSlotDiffCallback()) {
+package com.livly.booking
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeSlotViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_time_slot, parent, false)
-        return TimeSlotViewHolder(view)
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.livly.booking.databinding.ItemTimeSlotBinding
+import com.livly.booking.data.remote.model.TimeSlot
+
+class AmenityAvailabilityAdapter : ListAdapter<TimeSlot, AmenityAvailabilityAdapter.ViewHolder>(DiffCallback) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemTimeSlotBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TimeSlotViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val slot = getItem(position)
+        holder.bind(slot)
     }
 
-    class TimeSlotViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val startTimeTextView: TextView = itemView.findViewById(R.id.startTimeTextView)
-        private val endTimeTextView: TextView = itemView.findViewById(R.id.endTimeTextView)
-        private val availabilityTextView: TextView = itemView.findViewById(R.id.availabilityTextView)
-
-        fun bind(timeSlot: TimeSlot) {
-            startTimeTextView.text = timeSlot.start
-            endTimeTextView.text = timeSlot.end
-            availabilityTextView.text = if (timeSlot.isAvailable) "Available" else "Unavailable"
+    class ViewHolder(private val binding: ItemTimeSlotBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(slot: TimeSlot) {
+            binding.startTimeTextView.text = slot.start
+            binding.endTimeTextView.text = slot.end
+            binding.availabilityTextView.text = if (slot.isAvailable) "Available" else "Not Available"
         }
     }
 
-    class TimeSlotDiffCallback : DiffUtil.ItemCallback<TimeSlot>() {
+    object DiffCallback : DiffUtil.ItemCallback<TimeSlot>() {
         override fun areItemsTheSame(oldItem: TimeSlot, newItem: TimeSlot): Boolean {
             return oldItem.start == newItem.start && oldItem.end == newItem.end
         }

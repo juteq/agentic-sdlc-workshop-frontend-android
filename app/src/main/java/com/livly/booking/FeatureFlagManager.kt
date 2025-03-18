@@ -1,13 +1,16 @@
+package com.livly.booking
+
+import javax.inject.Inject
+import javax.inject.Singleton
+
 @Singleton
 class FeatureFlagManager @Inject constructor() {
+    private val enabledFeatures = setOf(
+        "amenity_availability",
+        "create_booking"
+    )
 
-    private val featureFlags = mutableMapOf<String, Boolean>()
-
-    fun isFeatureEnabled(feature: String): Boolean {
-        return featureFlags[feature] ?: false
-    }
-
-    fun setFeatureEnabled(feature: String, isEnabled: Boolean) {
-        featureFlags[feature] = isEnabled
+    fun isFeatureEnabled(featureName: String): Boolean {
+        return enabledFeatures.contains(featureName)
     }
 }

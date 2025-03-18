@@ -1,3 +1,13 @@
+package com.livly.booking.data.remote
+
+import com.livly.booking.data.remote.model.TimeSlot
+import com.livly.booking.data.remote.model.CreateBookingCommand
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
+
 interface AmenityBookingService {
 
     @GET("/api/Amenity/{id}/availability")
@@ -10,18 +20,3 @@ interface AmenityBookingService {
     @POST("/api/Booking")
     suspend fun createBooking(@Body createBookingCommand: CreateBookingCommand): String
 }
-
-// Data classes for the API responses and requests
-
-data class TimeSlot(
-    val start: String,
-    val end: String,
-    val isAvailable: Boolean
-)
-
-data class CreateBookingCommand(
-    val amenityId: String,
-    val residentId: String,
-    val startTime: String,
-    val endTime: String
-)

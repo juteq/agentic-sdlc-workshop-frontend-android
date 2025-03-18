@@ -1,3 +1,11 @@
+package com.livly.booking.data
+
+import com.livly.booking.data.remote.AmenityBookingService
+import com.livly.booking.data.remote.model.TimeSlot
+import com.livly.booking.data.remote.model.CreateBookingCommand
+import javax.inject.Inject
+import javax.inject.Singleton
+
 @Singleton
 class AmenityBookingRepository @Inject constructor(
     private val amenityBookingService: AmenityBookingService
