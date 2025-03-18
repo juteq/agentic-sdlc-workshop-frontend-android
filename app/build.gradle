@@ -19,8 +19,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        buildConfig true
+        viewBinding true
+    }
+
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:5122/\""
+            // ...existing debug configuration...
+        }
         release {
+            buildConfigField "String", "BASE_URL", "\"https://api.livly.com/\""  // Replace with actual production URL
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -31,9 +41,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '17'
-    }
-    buildFeatures {
-        viewBinding true
     }
 }
 

@@ -2,6 +2,7 @@ package com.livly.booking.di
 
 import android.util.Log
 import com.google.gson.Gson
+import com.livly.booking.BuildConfig
 import com.livly.booking.data.model.ApiResponse
 import com.livly.booking.data.remote.AmenityBookingService
 import dagger.Module
@@ -88,7 +89,7 @@ object NetworkModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5122/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
